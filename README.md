@@ -1,5 +1,9 @@
 # UCE Génie Logiciel Avancé : Techniques de tests
 
+## Préface
+
+Ceci est une préface pour tester circleci dans une autre branche.
+
 ## Introduction
 
 Vous allez à travers ces projet mettre en application une partie des aspects évoqués en cours vis à vis des techniques de tests.  
