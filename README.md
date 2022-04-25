@@ -4,6 +4,7 @@
 
 Ceci est une préface pour tester circleci dans une autre branche.
 Un autre test
+Encore un autre
 
 ## Introduction
 
