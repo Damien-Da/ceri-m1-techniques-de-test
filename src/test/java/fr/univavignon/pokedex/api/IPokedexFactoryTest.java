@@ -1,22 +1,20 @@
 package fr.univavignon.pokedex.api;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-class IPokedexFactoryTest {
+public class IPokedexFactoryTest {
     IPokedexFactory pokedexFactory;
     IPokemonMetadataProvider pokemonMetadataProvider;
     IPokemonFactory pokemonFactory;
@@ -61,8 +59,8 @@ class IPokedexFactoryTest {
     Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
     Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
 
-    @BeforeEach
-    void setUp() throws PokedexException {
+    @Before
+    public void setUp() throws PokedexException {
         pokedexFactory = Mockito.mock(IPokedexFactory.class);
         pokemonMetadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
         pokemonFactory = Mockito.mock(IPokemonFactory.class);
@@ -76,7 +74,7 @@ class IPokedexFactoryTest {
     }
 
     @Test
-    void createPokedex() throws PokedexException {
+    public void testCreatePokedex() throws PokedexException {
         IPokedex pokedexTest = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
         int id = pokedex.addPokemon(bulbizarre);
         assertEquals(bulbizarre, pokedex.getPokemon(id));

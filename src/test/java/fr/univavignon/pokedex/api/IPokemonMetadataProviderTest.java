@@ -1,12 +1,12 @@
 package fr.univavignon.pokedex.api;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -14,7 +14,7 @@ import org.mockito.stubbing.Answer;
 public class IPokemonMetadataProviderTest {
     IPokemonMetadataProvider metadataProvider;
 
-    @BeforeEach
+    @Before
     public void setUp() throws PokedexException {
         metadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
         PokemonMetadata bulbizarreMetadata = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
@@ -39,7 +39,7 @@ public class IPokemonMetadataProviderTest {
     }
 
     @Test
-    public void getPokemonMetadataTest() throws PokedexException {
+    public void testGetPokemonMetadataTest() throws PokedexException {
         // Test sur Bulbizarre
         PokemonMetadata bulbizarreMetaDataTest = metadataProvider.getPokemonMetadata(0);
 
@@ -59,7 +59,7 @@ public class IPokemonMetadataProviderTest {
         assertEquals(260, aqualiMetaDataTest.getStamina());
 
         // Test sur des échecs
-        Assertions.assertThrows(PokedexException.class, () -> metadataProvider.getPokemonMetadata(-1));
-        Assertions.assertThrows(PokedexException.class, () -> metadataProvider.getPokemonMetadata(151));
+        assertThrows(PokedexException.class, () -> metadataProvider.getPokemonMetadata(-1));
+        assertThrows(PokedexException.class, () -> metadataProvider.getPokemonMetadata(151));
     }
 }

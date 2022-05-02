@@ -1,8 +1,8 @@
 package fr.univavignon.pokedex.api;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -15,8 +15,8 @@ public class IPokemonFactoryTest {
 
     IPokemonFactory pokemonFactory;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         pokemonFactory = Mockito.mock(IPokemonFactory.class);
         Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
         Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
@@ -41,7 +41,7 @@ public class IPokemonFactoryTest {
     }
 
     @Test
-    public void createPokemon() {
+    public void testCreatePokemon() {
         // Test sur Bulbizarre
         Pokemon bulbizarreTest = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
 
@@ -54,7 +54,7 @@ public class IPokemonFactoryTest {
         assertEquals(64, bulbizarreTest.getHp());
         assertEquals(4000, bulbizarreTest.getDust());
         assertEquals(4, bulbizarreTest.getCandy());
-        Assertions.assertEquals(56, bulbizarreTest.getIv());
+        assertEquals(56, bulbizarreTest.getIv());
 
         // Test sur Aquali (tout autre pokemon)
         Pokemon aqualiTest = pokemonFactory.createPokemon(133, 2729, 202, 5000, 4);
@@ -68,7 +68,7 @@ public class IPokemonFactoryTest {
         assertEquals(202, aqualiTest.getHp());
         assertEquals(5000, aqualiTest.getDust());
         assertEquals(4, aqualiTest.getCandy());
-        Assertions.assertEquals(100, aqualiTest.getIv());
+        assertEquals(100, aqualiTest.getIv());
 
     }
 }

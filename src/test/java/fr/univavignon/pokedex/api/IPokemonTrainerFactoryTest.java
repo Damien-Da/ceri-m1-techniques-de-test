@@ -1,7 +1,8 @@
 package fr.univavignon.pokedex.api;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -9,11 +10,11 @@ import org.mockito.stubbing.Answer;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-class IPokemonTrainerFactoryTest {
+public class IPokemonTrainerFactoryTest {
     IPokedex pokedex = new IPokedex() {
         @Override
         public int size() {
@@ -54,8 +55,8 @@ class IPokemonTrainerFactoryTest {
     IPokemonTrainerFactory pokemonTrainerFactory;
     IPokedexFactory pokedexFactory;
 
-    @BeforeEach
-    void setUp() throws PokedexException {
+    @Before
+    public void setUp() throws PokedexException {
         pokemonTrainerFactory = Mockito.mock(IPokemonTrainerFactory.class);
         pokedexFactory = Mockito.mock(IPokedexFactory.class);
         when(pokemonTrainerFactory.createTrainer(any(String.class), any(Team.class), any(IPokedexFactory.class))).thenAnswer(
@@ -68,7 +69,7 @@ class IPokemonTrainerFactoryTest {
     }
 
     @Test
-    void createTrainer() {
+    public void testCreateTrainer() {
         PokemonTrainer pokemonTrainerTest = pokemonTrainerFactory.createTrainer("Damien", Team.MYSTIC, pokedexFactory);
         assertEquals("Damien", pokemonTrainerTest.getName());
         assertEquals(Team.MYSTIC, pokemonTrainerTest.getTeam());
