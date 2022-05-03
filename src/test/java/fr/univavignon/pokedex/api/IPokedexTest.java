@@ -14,85 +14,95 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class IPokedexTest {
-    IPokedex pokedex;
-    List<Pokemon> listPokemon;
-    List<Pokemon> listPokemonTriee;
+//    IPokedex pokedex;
+//    List<Pokemon> listPokemon;
+//    List<Pokemon> listPokemonTriee;
+//    Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
+//    Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
+//
+//    @Before
+//    public void setUp() throws PokedexException {
+//        pokedex = Mockito.mock(IPokedex.class);
+//        listPokemon = new ArrayList<Pokemon>();
+//        listPokemonTriee = new ArrayList<Pokemon>();
+//        when(pokedex.size()).thenAnswer(
+//                new Answer() {
+//                    public Integer answer(InvocationOnMock invocation) {
+//                        return listPokemon.size();
+//                    }
+//                });
+//
+//        when(pokedex.addPokemon(any(Pokemon.class))).thenAnswer(
+//                new Answer() {
+//                    public Integer answer(InvocationOnMock invocation) {
+//                        Object[] args = invocation.getArguments();
+//                        Pokemon pokemon = (Pokemon) args[0];
+//                        int idPokemon = pokemon.getIndex();
+//                        return idPokemon;
+//                    }
+//                });
+//
+//        when(pokedex.getPokemon(anyInt())).thenAnswer(
+//                new Answer() {
+//                    public Object answer(InvocationOnMock invocation) throws PokedexException {
+//                        Object[] args = invocation.getArguments();
+//                        int idPokemon = (int) args[0];
+//                        if (idPokemon < 0 || idPokemon > 150) {
+//                            throw new PokedexException("Le pokemon d'id " + idPokemon + " n'existe pas");
+//                        }
+//                        else if (idPokemon == 0) {
+//                            return bulbizarre;
+//                        }
+//                        else {
+//                            return aquali;
+//                        }
+//                    }
+//                }
+//        );
+//
+//        when(pokedex.getPokemons()).thenAnswer(
+//                new Answer() {
+//                    public Object answer(InvocationOnMock invocation) {
+//                        return Collections.unmodifiableList(listPokemon);
+//                    }
+//                }
+//        );
+//
+//        listPokemonTriee.add(bulbizarre);
+//        listPokemonTriee.add(aquali);
+//        when(pokedex.getPokemons(any(PokemonComparators.class))).thenAnswer(
+//                new Answer() {
+//                    public Object answer(InvocationOnMock invocation) {
+//                        Object[] args = invocation.getArguments();
+//                        PokemonComparators comparator = (PokemonComparators) args[0];
+//                        if (comparator.compare(listPokemon.get(0), listPokemon.get(1)) <= 0) {
+//                            return Collections.unmodifiableList(listPokemon);
+//                        }
+//                        else {
+//                            return Collections.unmodifiableList(listPokemonTriee);
+//                        }
+//                    }
+//                }
+//        );
+//
+//    }
+
+    Pokedex pokedex;
+
     Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
     Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
 
     @Before
-    public void setUp() throws PokedexException {
-        pokedex = Mockito.mock(IPokedex.class);
-        listPokemon = new ArrayList<Pokemon>();
-        listPokemonTriee = new ArrayList<Pokemon>();
-        when(pokedex.size()).thenAnswer(
-                new Answer() {
-                    public Integer answer(InvocationOnMock invocation) {
-                        return listPokemon.size();
-                    }
-                });
-
-        when(pokedex.addPokemon(any(Pokemon.class))).thenAnswer(
-                new Answer() {
-                    public Integer answer(InvocationOnMock invocation) {
-                        Object[] args = invocation.getArguments();
-                        Pokemon pokemon = (Pokemon) args[0];
-                        int idPokemon = pokemon.getIndex();
-                        return idPokemon;
-                    }
-                });
-
-        when(pokedex.getPokemon(anyInt())).thenAnswer(
-                new Answer() {
-                    public Object answer(InvocationOnMock invocation) throws PokedexException {
-                        Object[] args = invocation.getArguments();
-                        int idPokemon = (int) args[0];
-                        if (idPokemon < 0 || idPokemon > 150) {
-                            throw new PokedexException("Le pokemon d'id " + idPokemon + " n'existe pas");
-                        }
-                        else if (idPokemon == 0) {
-                            return bulbizarre;
-                        }
-                        else {
-                            return aquali;
-                        }
-                    }
-                }
-        );
-
-        when(pokedex.getPokemons()).thenAnswer(
-                new Answer() {
-                    public Object answer(InvocationOnMock invocation) {
-                        return Collections.unmodifiableList(listPokemon);
-                    }
-                }
-        );
-
-        listPokemonTriee.add(bulbizarre);
-        listPokemonTriee.add(aquali);
-        when(pokedex.getPokemons(any(PokemonComparators.class))).thenAnswer(
-                new Answer() {
-                    public Object answer(InvocationOnMock invocation) {
-                        Object[] args = invocation.getArguments();
-                        PokemonComparators comparator = (PokemonComparators) args[0];
-                        if (comparator.compare(listPokemon.get(0), listPokemon.get(1)) <= 0) {
-                            return Collections.unmodifiableList(listPokemon);
-                        }
-                        else {
-                            return Collections.unmodifiableList(listPokemonTriee);
-                        }
-                    }
-                }
-        );
-
+    public void setUp() {
+        pokedex = new Pokedex(new PokemonMetadataProvider(), new PokemonFactory());
     }
 
     @Test
     public void testSize() {
         assertEquals(0, pokedex.size());
-        listPokemon.add(bulbizarre);
+        pokedex.addPokemon(bulbizarre);
         assertEquals(1, pokedex.size());
-        listPokemon.add(aquali);
+        pokedex.addPokemon(aquali);
         assertEquals(2, pokedex.size());
     }
 
@@ -105,6 +115,9 @@ public class IPokedexTest {
     @Test
     public void testGetPokemon() throws PokedexException {
         // Test sur Bulbizarre
+        pokedex.addPokemon(bulbizarre);
+        pokedex.addPokemon(aquali);
+
         Pokemon bulbizarreTest = pokedex.getPokemon(0);
 
         assertEquals(0, bulbizarreTest.getIndex());
@@ -119,7 +132,7 @@ public class IPokedexTest {
         assertEquals(56, bulbizarreTest.getIv());
 
         // Test sur Aquali (tout autre pokemon)
-        Pokemon aqualiTest = pokedex.getPokemon(133);
+        Pokemon aqualiTest = pokedex.getPokemon(1);
 
         assertEquals(133, aqualiTest.getIndex());
         assertEquals("Aquali", aqualiTest.getName());
@@ -131,21 +144,45 @@ public class IPokedexTest {
         assertEquals(5000, aqualiTest.getDust());
         assertEquals(4, aqualiTest.getCandy());
         assertEquals(100, aqualiTest.getIv());
+
     }
 
     @Test
     public void testGetPokemons() {
         assertTrue(pokedex.getPokemons().isEmpty());
-        listPokemon.add(bulbizarre);
+        pokedex.addPokemon(bulbizarre);
         assertTrue(pokedex.getPokemons().contains(bulbizarre));
-        listPokemon.add(aquali);
+        pokedex.addPokemon(aquali);
         assertTrue(pokedex.getPokemons().containsAll(Arrays.asList(bulbizarre, aquali)));
     }
 
     @Test
+    public void testCreatePokemon() throws PokedexException {
+        Pokemon pokemon = pokedex.createPokemon(0, 613, 64, 4000, 4);
+
+        assertEquals(0, pokemon.getIndex());
+        assertEquals("Bulbizarre", pokemon.getName());
+        assertEquals(126, pokemon.getAttack());
+        assertEquals(126, pokemon.getDefense());
+        assertEquals(90, pokemon.getStamina());
+        assertEquals(613, pokemon.getCp());
+        assertEquals(64, pokemon.getHp());
+        assertEquals(4000, pokemon.getDust());
+        assertEquals(4, pokemon.getCandy());
+        assertEquals(0, pokemon.getIv());
+    }
+
+    @Test
     public void testGetPokemonsWithComparator() {
+        pokedex.addPokemon(aquali);
+        pokedex.addPokemon(bulbizarre);
+        List<Pokemon> listPokemon = new ArrayList<Pokemon>();
         listPokemon.add(aquali);
         listPokemon.add(bulbizarre);
+        List<Pokemon> listPokemonTriee = new ArrayList<Pokemon>();
+        listPokemonTriee.add(bulbizarre);
+        listPokemonTriee.add(aquali);
+
         PokemonComparators pokemonComparator = PokemonComparators.INDEX;
         assertEquals(listPokemonTriee, pokedex.getPokemons(pokemonComparator));
         pokemonComparator = PokemonComparators.NAME;

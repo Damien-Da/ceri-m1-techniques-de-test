@@ -12,30 +12,37 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 public class IPokemonMetadataProviderTest {
-    IPokemonMetadataProvider metadataProvider;
+//    IPokemonMetadataProvider metadataProvider;
+//
+//    @Before
+//    public void setUp() throws PokedexException {
+//        metadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
+//        PokemonMetadata bulbizarreMetadata = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
+//        PokemonMetadata aqualiMetadata = new PokemonMetadata(133, "Aquali", 186, 168, 260);
+//        when(metadataProvider.getPokemonMetadata(anyInt())).thenAnswer(
+//                new Answer() {
+//                    public Object answer(InvocationOnMock invocation) throws PokedexException {
+//                        Object[] args = invocation.getArguments();
+//                        int idPokemon = (int) args[0];
+//                        if (idPokemon < 0 || idPokemon > 150) {
+//                            throw new PokedexException("Le pokemon d'id " + idPokemon + " n'existe pas");
+//                        }
+//                        else if (idPokemon == 0) {
+//                            return bulbizarreMetadata;
+//                        }
+//                        else {
+//                            return aqualiMetadata;
+//                        }
+//                    }
+//                }
+//        );
+//    }
+
+    PokemonMetadataProvider metadataProvider;
 
     @Before
-    public void setUp() throws PokedexException {
-        metadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
-        PokemonMetadata bulbizarreMetadata = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
-        PokemonMetadata aqualiMetadata = new PokemonMetadata(133, "Aquali", 186, 168, 260);
-        when(metadataProvider.getPokemonMetadata(anyInt())).thenAnswer(
-                new Answer() {
-                    public Object answer(InvocationOnMock invocation) throws PokedexException {
-                        Object[] args = invocation.getArguments();
-                        int idPokemon = (int) args[0];
-                        if (idPokemon < 0 || idPokemon > 150) {
-                            throw new PokedexException("Le pokemon d'id " + idPokemon + " n'existe pas");
-                        }
-                        else if (idPokemon == 0) {
-                            return bulbizarreMetadata;
-                        }
-                        else {
-                            return aqualiMetadata;
-                        }
-                    }
-                }
-        );
+    public void setUp() {
+        metadataProvider = new PokemonMetadataProvider();
     }
 
     @Test

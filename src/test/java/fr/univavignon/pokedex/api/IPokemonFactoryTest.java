@@ -13,35 +13,43 @@ import static org.mockito.Mockito.when;
 
 public class IPokemonFactoryTest {
 
-    IPokemonFactory pokemonFactory;
+//    IPokemonFactory pokemonFactory;
+//
+//    @Before
+//    public void setUp() throws PokedexException {
+//        pokemonFactory = Mockito.mock(IPokemonFactory.class);
+//        Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
+//        Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
+//        when(pokemonFactory.createPokemon(anyInt(), anyInt(), anyInt(), anyInt(), anyInt())).thenAnswer(
+//                new Answer() {
+//                    public Object answer(InvocationOnMock invocation) {
+//                        Object[] args = invocation.getArguments();
+//                        int idPokemon = (int) args[0];
+//                        int cpPokemon = (int) args[1];
+//                        int hpPokemon = (int) args[2];
+//                        int dustPokemon = (int) args[3];
+//                        int candyPokemon = (int) args[4];
+//                        if (idPokemon == 0 && cpPokemon == 613 && hpPokemon == 64 && dustPokemon == 4000 && candyPokemon == 4) {
+//                            return bulbizarre;
+//                        }
+//                        else {
+//                            return aquali;
+//                        }
+//                    }
+//                }
+//        );
+//    }
+
+    PokemonFactory pokemonFactory;
 
     @Before
     public void setUp() {
-        pokemonFactory = Mockito.mock(IPokemonFactory.class);
-        Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
-        Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
-        when(pokemonFactory.createPokemon(anyInt(), anyInt(), anyInt(), anyInt(), anyInt())).thenAnswer(
-                new Answer() {
-                    public Object answer(InvocationOnMock invocation) {
-                        Object[] args = invocation.getArguments();
-                        int idPokemon = (int) args[0];
-                        int cpPokemon = (int) args[1];
-                        int hpPokemon = (int) args[2];
-                        int dustPokemon = (int) args[3];
-                        int candyPokemon = (int) args[4];
-                        if (idPokemon == 0 && cpPokemon == 613 && hpPokemon == 64 && dustPokemon == 4000 && candyPokemon == 4) {
-                            return bulbizarre;
-                        }
-                        else {
-                            return aquali;
-                        }
-                    }
-                }
-        );
+        pokemonFactory = new PokemonFactory();
+        Pokedex pokedex = new Pokedex(new PokemonMetadataProvider(), pokemonFactory);
     }
 
     @Test
-    public void testCreatePokemon() {
+    public void testCreatePokemon() throws PokedexException {
         // Test sur Bulbizarre
         Pokemon bulbizarreTest = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
 
@@ -54,7 +62,7 @@ public class IPokemonFactoryTest {
         assertEquals(64, bulbizarreTest.getHp());
         assertEquals(4000, bulbizarreTest.getDust());
         assertEquals(4, bulbizarreTest.getCandy());
-        assertEquals(56, bulbizarreTest.getIv());
+        assertEquals(0, bulbizarreTest.getIv());
 
         // Test sur Aquali (tout autre pokemon)
         Pokemon aqualiTest = pokemonFactory.createPokemon(133, 2729, 202, 5000, 4);
@@ -68,7 +76,7 @@ public class IPokemonFactoryTest {
         assertEquals(202, aqualiTest.getHp());
         assertEquals(5000, aqualiTest.getDust());
         assertEquals(4, aqualiTest.getCandy());
-        assertEquals(100, aqualiTest.getIv());
+        assertEquals(0, aqualiTest.getIv());
 
     }
 }
