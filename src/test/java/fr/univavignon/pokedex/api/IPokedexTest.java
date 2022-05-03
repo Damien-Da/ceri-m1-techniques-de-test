@@ -16,6 +16,7 @@ import static org.mockito.Mockito.when;
 public class IPokedexTest {
     IPokedex pokedex;
     List<Pokemon> listPokemon;
+    List<Pokemon> listPokemonTrieeByIndex;
     Pokemon bulbizarre = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 56);
     Pokemon aquali = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
 
@@ -23,6 +24,7 @@ public class IPokedexTest {
     public void setUp() throws PokedexException {
         pokedex = Mockito.mock(IPokedex.class);
         listPokemon = new ArrayList<Pokemon>();
+        listPokemonTrieeByIndex = new ArrayList<Pokemon>();
         when(pokedex.size()).thenAnswer(
                 new Answer() {
                     public Integer answer(InvocationOnMock invocation) {
@@ -65,6 +67,24 @@ public class IPokedexTest {
                     }
                 }
         );
+
+        listPokemonTrieeByIndex.add(bulbizarre);
+        listPokemonTrieeByIndex.add(aquali);
+        when(pokedex.getPokemons(any(PokemonComparators.class))).thenAnswer(
+                new Answer() {
+                    public Object answer(InvocationOnMock invocation) {
+                        Object[] args = invocation.getArguments();
+                        PokemonComparators comparator = (PokemonComparators) args[0];
+                        if (comparator == PokemonComparators.INDEX) {
+                            return Collections.unmodifiableList(listPokemonTrieeByIndex);
+                        }
+                        else {
+                            return Collections.unmodifiableList(listPokemon);
+                        }
+                    }
+                }
+        );
+
     }
 
     @Test
@@ -124,5 +144,13 @@ public class IPokedexTest {
 
     @Test
     public void testGetPokemonsWithComparator() {
+        listPokemon.add(aquali);
+        listPokemon.add(bulbizarre);
+        PokemonComparators pokemonComparator = PokemonComparators.INDEX;
+        assertEquals(listPokemonTrieeByIndex, pokedex.getPokemons(pokemonComparator));
+        pokemonComparator = PokemonComparators.NAME;
+        assertEquals(listPokemon, pokedex.getPokemons(pokemonComparator));
+        pokemonComparator = PokemonComparators.CP;
+        assertEquals(listPokemon, pokedex.getPokemons(pokemonComparator));
     }
 }
