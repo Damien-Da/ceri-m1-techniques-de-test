@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static java.util.Collections.sort;
-
 public class Pokedex implements IPokedex {
     private List<Pokemon> pokemons;
     PokemonMetadataProvider metaDataProvider;
