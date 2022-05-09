@@ -29,9 +29,12 @@ jobs:
       - run:
           name: Test
           command: mvn test
+      - run:
+          name: Build docs
+          command: mkdir docs
       - persist_to_workspace:
-          root: docs/
-          paths: html
+          root: ./
+          paths: docs
       - codecov/upload:
           file: "target/site/jacoco/jacoco.xml"
 
