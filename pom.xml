@@ -48,6 +48,7 @@
             <artifactId>checkstyle</artifactId>
             <version>10.1</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -98,6 +99,18 @@
                                 <inputFile>target/checkstyle-result.xml</inputFile>
                             </inputFiles>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
