@@ -31,7 +31,7 @@ jobs:
           command: mvn test
       - run:
           name: Build docs
-          command: cd docs/ && make html
+          command: make docs
       - persist_to_workspace:
           root: docs/
           paths: html
