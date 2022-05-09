@@ -1,0 +1,1 @@
+cmd.exe /X /C "C:\Users\dallo\.jdks\openjdk-18\bin\javadoc.exe @options @packages @argfile"
