@@ -29,7 +29,6 @@ jobs:
       - run:
           name: Test
           command: mvn test
-
 #      - run:
 #          name: Build docs
 #          command: mkdir docs
@@ -65,9 +64,9 @@ workflows:
           filters:
             branches:
               only: master
-#      - deploy:
-#          requires:
-#            - build-and-test
-#          filters:
-#            branches:
-#              only: master
+      - deploy:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
