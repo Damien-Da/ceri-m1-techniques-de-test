@@ -26,36 +26,36 @@ jobs:
           name: Build
           command: mvn -B -DskipTests clean package
       # Then run your tests!
-      - run:
-          name: Test
-          command: mvn test
-      - run:
-          name: Build docs
-          command: mkdir docs
-      - persist_to_workspace:
-          root: ./
-          paths: docs
-      - codecov/upload:
-          file: "target/site/jacoco/jacoco.xml"
+#      - run:
+#          name: Test
+#          command: mvn test
+#      - run:
+#          name: Build docs
+#          command: mkdir docs
+#      - persist_to_workspace:
+#          root: ./
+#          paths: docs
+#      - codecov/upload:
+#          file: "target/site/jacoco/jacoco.xml"
 
-  deploy:
-    docker:
-      - image: node:8.10.0
-    steps:
-      - checkout
-      - attach_workspace:
-            at: docs/
-      - add_ssh_keys:
-          fingerprints:
-            - "7a:99:1e:ee:a0:60:fd:a8:72:3a:74:f2:59:84:90:ba"
-      - run:
-          name: Install
-          command: mvn install
-      - run:
-          command: npm install -g --silent gh-pages@2.0.1
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: gh-pages --dist docs/
+#  deploy:
+#    docker:
+#      - image: node:8.10.0
+#    steps:
+#      - checkout
+#      - attach_workspace:
+#            at: docs/
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "7a:99:1e:ee:a0:60:fd:a8:72:3a:74:f2:59:84:90:ba"
+#      - run:
+#          name: Install
+#          command: mvn install
+#      - run:
+#          command: npm install -g --silent gh-pages@2.0.1
+#      - run:
+#          name: Deploy docs to gh-pages branch
+#          command: gh-pages --dist docs/
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
@@ -64,9 +64,9 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: master
+#      - deploy:
+#          requires:
+#            - build-and-test
+#          filters:
+#            branches:
+#              only: master
