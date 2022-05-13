@@ -52,6 +52,8 @@ jobs:
           name: Install
           command: mvn install
       - run:
+          command: npm install -g --silent gh-pages@2.0.1
+      - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dist docs/
 workflows:
