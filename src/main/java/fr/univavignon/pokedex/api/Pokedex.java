@@ -18,7 +18,7 @@ public class Pokedex implements IPokedex {
     PokemonMetadataProvider metaDataProvider;
 
     /** Pokemon builder **/
-    PokemonFactory pokemonFactory;
+    RocketPokemonFactory pokemonFactory;
 
     /**
      * Default constructor.
@@ -27,10 +27,10 @@ public class Pokedex implements IPokedex {
      */
     public Pokedex(IPokemonMetadataProvider metadataProvider, IPokemonFactory pokemonFactory) {
         this.metaDataProvider = (PokemonMetadataProvider) metadataProvider;
-        this.pokemonFactory = (PokemonFactory) pokemonFactory;
+        this.pokemonFactory = (RocketPokemonFactory) pokemonFactory;
         this.pokemons = new ArrayList<>();
 
-        this.pokemonFactory.setPokedex(this);
+//        this.pokemonFactory.setPokedex(this);
     }
 
     /**

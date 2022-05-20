@@ -94,7 +94,7 @@ public class IPokedexTest {
 
     @Before
     public void setUp() {
-        pokedex = new Pokedex(new PokemonMetadataProvider(), new PokemonFactory());
+        pokedex = new Pokedex(new PokemonMetadataProvider(), new RocketPokemonFactory());
     }
 
     @Test

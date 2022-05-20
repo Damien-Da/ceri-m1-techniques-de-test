@@ -40,11 +40,11 @@ public class IPokemonFactoryTest {
 //        );
 //    }
 
-    PokemonFactory pokemonFactory;
+    RocketPokemonFactory pokemonFactory;
 
     @Before
     public void setUp() {
-        pokemonFactory = new PokemonFactory();
+        pokemonFactory = new RocketPokemonFactory();
         Pokedex pokedex = new Pokedex(new PokemonMetadataProvider(), pokemonFactory);
     }
 

@@ -86,7 +86,7 @@ public class IPokedexFactoryTest {
     @Test
     public void testCreatePokedex() throws PokedexException {
 //        IPokedex pokedexTest = pokedexFactory.createPokedex(pokemonMetadataProvider, pokemonFactory);
-        IPokedex pokedex = pokedexFactory.createPokedex(new PokemonMetadataProvider(), new PokemonFactory());
+        IPokedex pokedex = pokedexFactory.createPokedex(new PokemonMetadataProvider(), new RocketPokemonFactory());
         int id = pokedex.addPokemon(bulbizarre);
         assertEquals(bulbizarre, pokedex.getPokemon(id));
         //J'ai pas eu le temps de le tester autrement.
